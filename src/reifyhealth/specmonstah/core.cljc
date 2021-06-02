@@ -49,7 +49,7 @@
 
 ;; A relation is the description of how ents of type A reference ents
 ;; of type B. For example, in this:
-;; 
+;;
 ;; {:user {}
 ;;  :todo {:relations {:created-by-id [:user :id]}}}
 ;;
@@ -80,7 +80,7 @@
 ;; relations are monotype relations. example:
 ;;
 ;; {:topic {:relations {:topic-category-id [:topic-category :id]}}}
-;; 
+;;
 ;; `[:topic-category-id :id]` is a monotype relation
 (s/def ::monotype-relation
   (s/cat :ent-type ::ent-type
@@ -120,9 +120,9 @@
 
 ;; the prefix is used for ent auto-generation to uniquely identify
 ;; ents. Given this schema:
-;; 
+;;
 ;; {:user {:prefix :u}}
-;; 
+;;
 ;; the query `{:user [[2]]}` would produce ents with `ent-name` `:u0`
 ;; and `:u1`
 (s/def ::prefix keyword?)
@@ -183,7 +183,7 @@
 
 ;; examples:
 ;; generate 5 of a thing
-;; [[5]] 
+;; [[5]]
 ;;
 ;; generate 1 of a thing, don't generate the ent corresponding to created-by-id:
 ;; [[1 {:refs {:created-by-id ::omit}}]]
@@ -323,7 +323,7 @@
 (defn add-edge-with-id
   "When indicating :ent-a references :ent-b, include a
   `:relation-attrs` graph attribute that includes the attributes via
-  which `:ent-a` references `:ent-b`. 
+  which `:ent-a` references `:ent-b`.
 
   For example, if the `:project` named `:p0` has an `:owner-id` and
   `:updated-by-id` that both reference the `:user` named `:u0`, then
@@ -377,7 +377,7 @@
   (let [coll-attr?                      (coll-relation-attr? db ent-name relation-attr)
         {:keys [qr-constraint qr-term]} (conformed-query-opts query-term relation-attr)]
     (cond (or (nil? qr-constraint) (= :omit qr-constraint)) nil ;; noop
-          
+
           (and coll-attr? (not= qr-constraint :coll))
           (throw (ex-info "Query-relations for coll attrs must be a number or vector"
                           {:spec-data (s/explain-data ::coll-query-relations qr-term)}))
@@ -399,14 +399,17 @@
             (= qr-type :ent-name)   [qr-term]
             :let [bn (get bind related-ent-type)]
             bn   [bn]
-            
             :let [has-bound-descendants? (bound-descendants? db bind related-ent-type)
                   uniq?                  (uniq-relation-attr? db ent-name relation-attr)
                   ent-index              (lat/attr data ent-name :index)]
             (and has-bound-descendants? uniq?) [(bound-relation-attr-name db ent-name related-ent-type ent-index)]
             has-bound-descendants?             [(bound-relation-attr-name db ent-name related-ent-type 0)]
             uniq?                              [(numeric-node-name schema related-ent-type ent-index)]
-            related-ent-type                   [(default-node-name db related-ent-type)]
+
+            :let [candidates (sort (lg/successors data related-ent-type))]
+            related-ent-type                   (if (seq candidates)
+                                                 [(nth candidates (mod ent-index (count candidates)))]
+                                                 [(default-node-name db related-ent-type)])
             :else                              [])))
 
 (defn query-relation
@@ -594,7 +597,7 @@
   (throw-invalid-spec "db" ::db db)
   (throw-invalid-spec "query" ::query query)
   ;; end validations
-  
+
   (let [db (init-db db query)]
     (->> (reduce (fn [db ent-type]
                    (if-let [ent-type-query (ent-type query)]
