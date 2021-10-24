@@ -1,0 +1,3 @@
+#kaocha/v1
+{:plugins [:print-invocations :notifier]
+ :reporter kaocha.report/documentation}
