@@ -1,5 +1,17 @@
 <img align="right" src="docs/small-monstahs.png">
 
+**This is a friendly fork of
+[reifyhealth/specmonstah](https://github.com/reifyhealth/specmonstah), with some
+small alterations to how it behaves (see the [CHANGELOG](CHANGELOG.md)). It is
+not a _better_ version, it is just a little different. You should probably use
+the official Reify Health version unless you have a specific reason to use this
+version.**
+
+**[lambdaisland/specmonstah-malli](https://github.com/lambdaisland/specmonstah-malli)
+defaults to this version, but you can exclude it and add an explicit dependency
+on `reifyhealth/specmonstah` if you prefer, their APIs are 100% compatible, but
+the generated data will look a little different.**
+
 # Specmonstah
 
 * [Short Sweet Example](https://sweet-tooth.gitbook.io/specmonstah/#short-sweet-example)
@@ -10,7 +22,7 @@
 ## Deps
 
 ```clojure
-[reifyhealth/specmonstah "2.0.0"]
+[lambdaisland/specmonstah "2.0.0"]
 ```
 
 ## Purpose

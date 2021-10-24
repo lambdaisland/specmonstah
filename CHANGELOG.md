@@ -3,6 +3,7 @@
 ## Changed
 
 - Introduce lambdaisland friendly fork
+- Switch to `deps.edn` to allow `:git/url` references to this repo
 - When adding multiple ents of the same type, don't have them all point at the
   same related ents, but instead cycle through the ents that are already in the
   DB.
