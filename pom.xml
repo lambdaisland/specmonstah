@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.lambdaisland</groupId>
   <artifactId>specmonstah</artifactId>
-  <version>2.0.0.286</version>
+  <version>2.0.0.288</version>
   <name>specmonstah</name>
   <description></description>
   <url>https://github.com/lambdaisland/specmonstah</url>
@@ -22,7 +22,7 @@
     <url>https://github.com/lambdaisland/specmonstah</url>
     <connection>scm:git:git://github.com/lambdaisland/specmonstah.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/lambdaisland/specmonstah.git</developerConnection>
-    <tag>e054fc8152d4b2b0f58dd7aa0fb7059cab521f12</tag>
+    <tag>3b77142323fff4e62f2fa2f3c34374d4de1666ec</tag>
   </scm>
   <dependencies>
     <dependency>
@@ -61,7 +61,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <git-revision>e054fc8152d4b2b0f58dd7aa0fb7059cab521f12</git-revision>
+              <git-revision>3b77142323fff4e62f2fa2f3c34374d4de1666ec</git-revision>
             </manifestEntries>
           </archive>
         </configuration>
